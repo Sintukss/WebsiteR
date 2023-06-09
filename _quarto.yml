@@ -1,0 +1,33 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  
+  title: "Brīvprogrammatūra R statistikā"
+  navbar:
+    background: success
+    right:
+      - href: index.qmd
+        text: Home
+      - plots.qmd
+      - href: add.qmd
+        text: Graphics
+      - href: interactive.qmd
+        text: Interactive
+  page-footer: 
+    left: "Copyright 2023, Sintija Zvirgzdiņa" 
+    right: 
+      - icon: github
+        href: https://github.com/
+        
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+editor: visual
+
+

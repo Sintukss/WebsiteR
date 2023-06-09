@@ -1,0 +1,84 @@
+## *Scatter and bubble plots*
+
+```{r}
+options(warn=-1)
+suppressMessages(library(ggplot2))
+suppressMessages(library(plotly))
+suppressMessages(library(gapminder))
+data(gapminder)
+ggplotly(gapminder %>%
+  filter(year==2007) %>%
+  ggplot( aes(gdpPercap, lifeExp, size = pop, color= continent)) +
+  geom_point(shape=1) + geom_smooth() +
+  scale_x_log10() +
+  facet_wrap(~continent, ncol=2) +
+  theme_light())
+
+
+ggplotly(gapminder %>%
+  filter(year==2002) %>%
+  ggplot( aes(gdpPercap, lifeExp, size = pop, color= continent)) +
+  geom_point() + geom_smooth() +
+  scale_x_log10() +
+  theme_dark())
+```
+
+## *3D Scatterplot*
+
+```{r}
+# Libraries
+suppressMessages(library(rgl))
+
+# This is to output a rgl plot in a rmarkdown document.
+# setupKnitr()
+
+data <- iris
+
+# Add a new column with color
+krasas <- c('pink', 'yellow', 'lightgreen')
+krasugamma <- krasas[ as.numeric(data$Species) ]
+
+# Plot
+plot3d( 
+  x=data$`Sepal.Length`, y=data$`Sepal.Width`, z=data$`Petal.Length`, 
+  col = krasugamma, 
+  type = 's', 
+  radius = .1,
+  main='Irisa ziedu proporcijas',
+  xlab="Pumpura garums", ylab="Pumpura platums", zlab="Ziedlapas garums")
+
+legend3d("topright", legend = paste(c('Zems', 'Vidējs', 'Liels')), 
+         pch = 8, col = c('pink', 'yellow', 'lightgreen'))
+rglwidget()
+```
+
+## Network diagram
+
+```{r}
+suppressMessages(library(igraph))
+suppressMessages(library(networkD3))
+
+grafs <- data.frame(
+  from=c("Aluksne", "Aluksne", "Balvi", "Jelgava", "Cesis", "Jelgava", "Marupe", "Balvi", "Cesis", "Jelgava", "Smiltene", "Liepaja", "Ventspils"),
+  to=c("Bergi", "Marupe", "Smiltene", "Aluksne", "Cesis", "Riga", "Bergi", "Riga", "Aluksne", "Cesis", "Aluksne", "Balvi", "Liepaja")
+)
+
+p <- simpleNetwork(grafs, height="100px", width="100px",        
+                   Source = 1,
+                   Target = 2,
+                   linkDistance = 10,          # attālums starp virsotnēm
+                   charge = -300,              # pretestība vai pievilkšanās
+                   fontSize = 14,
+                   fontFamily = "serif",
+                   linkColour = "#666",
+                   nodeColour = "blue",
+                   opacity = 0.9,              # caurspīdīgums
+                   zoom = T
+)
+
+p
+```
+
+```{r}
+options(warn=0)
+```

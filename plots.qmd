@@ -1,0 +1,103 @@
+---
+title: "Plots"
+---
+
+::: {#graphics}
+R provides a remarkable variety of plots:
+:::
+
+### ***Scatter plot:***
+
+```{r class.source="bg-white"}
+options(warn=-1)
+
+suppressMessages(library(ggplot2))
+ 
+
+data=head(mtcars, 30)
+ 
+# Katra punkta vizualizācija
+ggplot(data, aes(x=wt, y=mpg, color = hp)) +
+  geom_point(size = 0.5, alpha = 0.8, shape=23) +
+  geom_text(
+    label=rownames(data),
+    nudge_x = 0.25, nudge_y = 0.25,
+    check_overlap = T
+  ) + 
+  labs(title = "Svara ietekme uz automašīnu nobraukumu",
+       x = "Svars (1000 mārciņas)",
+       y = "Jūdzes/(ASV) galons") + 
+  scale_color_gradient(low = "blue", high = "red") +
+  theme_linedraw()
+```
+
+### ***Histogram*****:**
+
+```{r class.source="bg-white"}
+
+hist(USJudgeRatings$ORAL, breaks=10, col="red", xlab="ORAL",
+     main="Histogram with normal curve")
+xfit=seq(min(USJudgeRatings$ORAL), max(USJudgeRatings$ORAL),length(20))
+yfit=dnorm(xfit,mean=mean(USJudgeRatings$ORAL))
+yfit1=yfit*0.5*length(USJudgeRatings$ORAL)
+lines(xfit, yfit1, col="purple", lwd=2)
+
+hist(mtcars$mpg, breaks=30, col="green", xlab="Jūdzes/(ASV) galons",
+     main="Histogram with not normal curve")
+xfit=seq(min(mtcars$mpg), max(mtcars$mpg),length(20))
+yfit=dnorm(xfit,mean=mean(mtcars$mpg))
+yfit1=yfit*2*length(mtcars$mpg)
+lines(xfit, yfit1, col="purple", lwd=2)
+```
+
+### ***Box plot:***
+
+```{r class.source="bg-white"}
+# Boxplot by group
+ggplot(data = chickwts, aes(x = feed, y = weight)) +
+       stat_boxplot(geom = "errorbar", 
+                    width = 0.2) +
+       geom_boxplot(fill = "red", colour = "black",
+                    alpha = 0.9, outlier.colour = "red") +
+       scale_y_continuous(name = "Weight") +
+       scale_x_discrete(name = "Feed") +
+       ggtitle("Vistas barošanas ietekme uz svaru") +
+       theme_dark()
+
+boxplot(count ~ spray, data = InsectSprays,
+        xlab = "Spreja veids", ylab = "Insektu skaits",
+        main = "Spreju iedarbība pret insektiem", varwidth = TRUE, 
+        col = (c("green", "blue", "purple", "yellow")))
+```
+
+### ***Bar plot:***
+
+```{r class.source="bg-white"}
+suppressMessages(library(scales))
+
+
+ggplot(mpg, 
+       aes(x = factor(class,
+                      levels = c("2seater", "subcompact",
+                                "compact", "midsize", 
+                                "minivan", "suv", "pickup"),
+                      labels = c("2vietīgais", "Subkompakts",
+                                 "Kompakts", "Standarta", 
+                                 "Minivens", "Džips", "Pikaps")),
+           fill = factor(drv, 
+                         levels = c("f", "r", "4"),
+                         labels = c("priekšējā", 
+                                    "aizmugurējā", 
+                                    "4x4")))) + 
+  geom_bar(position = "fill") +
+  scale_y_continuous(breaks = seq(0, 1, .2), 
+                     label = percent) +
+  scale_fill_brewer(palette = "Set2") +
+  labs(y = "Procenti", 
+       fill = "Piedziņa",
+       x = "Tips",
+       title = "Automobīļu sadalījums pēc tipa") +
+  theme_dark()
+
+options(warn=0)
+```

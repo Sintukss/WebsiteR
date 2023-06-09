@@ -1,0 +1,75 @@
+![](https://mans.llu.lv/sites/default/files/2022-09/LV_LBTU_logo-centrets_2022_zals.png){fig-alt="LBTU logo" fig-align="center" width="250"}
+
+# ITF studentiem
+
+## ***Ievads***
+
+::: {#ievads}
+R is a complete programming language, developed mostly by statisticians. R is free compare to other statistical software Microsoft Excel, SAS, IBM SPSS, Stata, Minitab R: dynamic, open source project: http://www.r-project.org - mainly command line-based (graphical user interfaces not well-developed) - software both for doing statistical analyses and graphics containing: - all statistical standard methods - several graphical sub-systems. - advanced methods available through extension packages (There are thousands of helpful R packages for you to use) - several integrated environments: RStudio (all platforms)
+:::
+
+### ***Data set***
+
+::: {#dataset}
+-   Data sets consist of columns or vectors of the same length
+-   data() #Overview of data set
+    -   Overview of a data set(USJudgeRatings in R):
+
+        -   *Show variable names: names (USJudgeRatings)*
+
+        ```{r class.source = "bg-success"}
+        names(USJudgeRatings)
+        ```
+
+        -   *Show first lines: head(USJudgeRatings, 7)*
+
+        ```{r class.source = "bg-success"}
+        head(USJudgeRatings, 7, data=USJudgeRatings)
+        ```
+:::
+
+### ***Data set:USJudgeRatings***
+
+::: {#USJudgeRatings}
+-   Select certain columns or rows (use the square brackets\[\]):
+    -   By column index:
+        -   *USJudgeRatings \[ , 1\] (column1)*
+
+            ```{r class.source = "bg-danger"}
+            USJudgeRatings[10 , 1]
+            ```
+
+        -   *USJudgeRatings \[ , c(1, 2)\] (column 1 and 2)*
+
+            ```{r class.source = "bg-danger"}
+            USJudgeRatings [10 , c(1, 2)]
+            ```
+
+        -   *USJudgeRatings \[ , -1\] (-1 column)*
+
+            ```{r class.source = "bg-danger"}
+            USJudgeRatings [10 , -1]
+            ```
+    -   By row index:
+        -   *USJudgeRatings \[1, \] (row 1)*
+
+            ```{r class.source = "bg-primary"}
+            USJudgeRatings [1, ]
+            ```
+    -   By column and row indices:
+        -   *USJudgeRatings \[1, 1\] (row 1 and column 1)*
+
+            ```{r class.source = "bg-primary"}
+            USJudgeRatings [7, 2]
+            ```
+    -   By names:
+        -   *USJudgeRatings\["PHYS"\]*
+
+            ```{r class.source = "bg-info"}
+            USJudgeRatings["PHYS"]
+            ```
+:::
+
+```{r}
+options(warn=0)
+```
